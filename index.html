@@ -14,10 +14,10 @@
 </head>
 <body>
     <header>
-        <h2>押しキャラタイマー</h2>
+        <h3>押しキャラタイマー</h3>
     </header>
     <div class="container" id="app">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
                 <a class="nav-link active" href="#min3" data-toggle="tab" >3分</a>
             </li>
@@ -31,13 +31,25 @@
 
         <div class="tab-content text-center">
             <div class="tab-pane fade show active" id="min3">
-                <h2>{{ countTime(countMinute3) }}</h2>
+                <img class="tab-image" src="chara.JPG">
+                <h2 v-if="defineMin">03:00</h2>
+                <h2 v-else>{{ countTime(timeData) }}</h2>
+                <button type="button" class="btn btn-secondary" v-on:click="start(3)">スタート</button>
+                <button type="button" class="btn btn-secondary" v-on:click="">ストップ</button>
             </div>
             <div class="tab-pane fade" id="min5">
-                <h2>{{ countTime(countMinute5) }}</h2>
+                <img class="tab-image" src="chara.JPG">
+                <h2 v-if="defineMin">05:00</h2>
+                <h2 v-else>{{ countTime(timeData) }}</h2>
+                <button type="button" class="btn btn-secondary" v-on:click="start(5)">スタート</button>
+                <button type="button" class="btn btn-secondary" v-on:click="">ストップ</button>
             </div>
             <div class="tab-pane fade" id="min10">
-                <h2>{{ countTime(countMinute10) }}</h2>
+                <img class="tab-image" src="chara.JPG">
+                <h2 v-if="defineMin">10:00</h2>
+                <h2 v-else>{{ countTime(timeData) }}</h2>
+                <button type="button" class="btn btn-secondary" v-on:click="start(10)">スタート</button>
+                <button type="button" class="btn btn-secondary" v-on:click="">ストップ</button>
             </div>
         </div>
     </div>
