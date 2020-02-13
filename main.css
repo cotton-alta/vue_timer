@@ -1,15 +1,29 @@
 header {
-    background-color: rgb(112, 108, 108);
-    color: #f7f7f7;
-    padding: 10px 10px;
     margin-bottom: 10px;
-    text-align: center;
+}
+
+.navbar {
+    color: #f7f7f7;
 }
 
 .tab-content {
-    margin: 30px 0px;
+    margin: 20px 0px;
 }
 
 .tab-image {
-    height: 300px;
+    height: 280px;
 }
+
+.card {
+    margin: 20px 0;
+}
+
+.btn:focus,.btn:active {
+    outline: none;
+    box-shadow: none;
+    background-color: #202324;
+}
+
+.btn:hover {
+    background-color: #202324;
+ }

@@ -2,24 +2,13 @@ let app = new Vue({
     el: '#app',
 
     data: {
-        countMinute3: {
-            min: 3,
-            sec: 0
-        },
-        countMinute5: {
-            min: 5,
-            sec: 0
-        },
-        countMinute10: {
-            min: 10,
-            sec: 0
-        },
+        countMinute3: {min: 3, sec: 0 },
+        countMinute5: {min: 5, sec: 0 },
+        countMinute10: {min: 10, sec: 0 },
         timeObj: null,
-        timeData: {
-            min: 0,
-            sec: 0
-        },
-        defineMin: true
+        timeData: {min: 0, sec: 0 },
+        defineMin: true,
+        timerOn: false
     },
 
     methods: {
@@ -34,38 +23,51 @@ let app = new Vue({
             }
         },
         start: function(time) {
-            if(this.timeObj !== null) {
-                return
-            }
-            this.defineMin = false
             let self = this
-            switch(time) {
-                case 3:
-                    this.timeData = this.countMinute3
-                    break
-                case 5:
-                    this.timeData = this.countMinute5
-                    break
-                case 10:
-                    this.timeData = this.countMinute10
-                    break
+            self.timerOn = true
+            self.defineMin = false
+            if(self.timeObj === null) {
+                switch(time) {
+                    case 3:
+                        self.timeData = Object.assign({}, self.countMinute3)
+                        break
+                    case 5:
+                        self.timeData = Object.assign({}, self.countMinute5)
+                        break
+                    case 10:
+                        self.timeData = Object.assign({}, self.countMinute10)
+                        break
+                }
             }
-            this.timeObj = setInterval(function() {
+            self.timeObj = setInterval(function() {
                 self.count()
             }, 1000)
         },
+        stop: function() {
+            let self = this
+            self.timerOn = false
+            clearInterval(self.timeObj)
+        },
         complete: function() {
-            clearInterval(this.timeObj)
-            this.timeData = {
+            let self = this
+            clearInterval(self.timeObj)
+            self.timeData = {
                 min: 0,
                 sec: 0
             }
+        },
+        reset: function() {
+            let self = this
+            self.defineMin = true
+            clearInterval(self.timeObj)
+            self.timeObj = null
+            self.timerOn = false
+            self.timeData = {min: 0, sec: 0 }
         }
     },
     computed: {
         countTime: () => {
             return (time) => {
-                console.log(time)
                 let timeStrings = [
                     time.min.toString(),
                     time.sec.toString(),
