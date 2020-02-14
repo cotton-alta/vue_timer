@@ -27,3 +27,7 @@ header {
 .btn:hover {
     background-color: #202324;
  }
+
+.form-group button {
+    float: right;
+}

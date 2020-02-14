@@ -8,7 +8,25 @@ let app = new Vue({
         timeObj: null,
         timeData: {min: 0, sec: 0 },
         defineMin: true,
-        timerOn: false
+        timerOn: false,
+        homeContent: true,
+        dialogue: '',
+        dialogueBefore: '',
+        dialogueCounting: '',
+        dialogueEnd: '',
+    },
+
+    mounted() {
+        if(localStorage.dialogueBefore) {
+            this.dialogueBefore = localStorage.dialogueBefore;
+        }
+        if(localStorage.dialogueCounting) {
+            this.dialogueCounting = localStorage.dialogueCounting;
+        }
+        if(localStorage.dialogueEnd) {
+            this.dialogueEnd = localStorage.dialogueEnd
+        }
+        this.dialogue = localStorage.dialogueBefore
     },
 
     methods: {
@@ -22,10 +40,25 @@ let app = new Vue({
                 this.timeData.sec--
             }
         },
+        toggleHome: function() {
+            let self = this
+            self.homeContent = true
+            if(self.timeObj !== null) {
+                self.dialogue = self.dialogueCounting
+            } else if(self.defineMin !== true) {
+                self.dialogue = self.dialogueEnd
+            } else {
+                self.dialogue = self.dialogueBefore
+            }
+        },
+        toggleSetting: function() {
+            this.homeContent = false
+        },
         start: function(time) {
             let self = this
             self.timerOn = true
             self.defineMin = false
+            self.dialogue = localStorage.dialogueCounting
             if(self.timeObj === null) {
                 switch(time) {
                     case 3:
@@ -55,15 +88,32 @@ let app = new Vue({
                 min: 0,
                 sec: 0
             }
+            self.dialogue = self.dialogueEnd
         },
         reset: function() {
             let self = this
             self.defineMin = true
+            self.dialogue = localStorage.dialogueBefore
             clearInterval(self.timeObj)
             self.timeObj = null
             self.timerOn = false
             self.timeData = {min: 0, sec: 0 }
-        }
+        },
+    },
+    watch: {
+        dialogueBefore: function(serif) {
+            localStorage.dialogueBefore = serif;
+        },
+        dialogueCounting: function(serif) {
+            localStorage.dialogueCounting = serif;
+        },
+        dialogueEnd: function(serif) {
+            localStorage.dialogueEnd = serif;
+        },
+        characterImg: function(img) {
+            localStorage.characterImg = img.toDataURL();
+            console.log(localStorage.characterImg)
+        },
     },
     computed: {
         countTime: () => {
