@@ -49,7 +49,7 @@
             
             <div class="tab-content text-center">
                 <div class="tab-pane fade show active" id="min3">
-                    <img class="tab-image" id='tab-image' src="chara.JPG"></img>
+                    <img class="tab-image" id='tab-image' :src="charaURL"></img>
                     <div class="card">
                         <div class="card-body" aria-placeholder="がんばリーリエ！"> {{ dialogue }} </div>
                     </div>
@@ -60,7 +60,7 @@
                     <button type="button" class="btn btn-dark" v-on:click="reset">リセット</button>
                 </div>
                 <div class="tab-pane fade" id="min5">
-                    <img class="tab-image" src="chara.JPG">
+                    <img class="tab-image" id='tab-image' :src="charaURL"></img>
                     <div class="card">
                         <div class="card-body" aria-placeholder="がんばリーリエ！"> {{ dialogue }} </div>
                     </div>
@@ -71,7 +71,7 @@
                     <button type="button" class="btn btn-dark" v-on:click="reset">リセット</button>
                 </div>
                 <div class="tab-pane fade" id="min10">
-                    <img class="tab-image" src="chara.JPG">
+                    <img class="tab-image" id='tab-image' :src="charaURL"></img>
                     <div class="card">
                         <div class="card-body" aria-placeholder="がんばリーリエ！"> {{ dialogue }} </div>
                     </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div v-else>
+        <div v-show='!homeContent'>
             <form>
                 <div class="form-group">
                     <label for="#countBefore">カウント前のセリフを入力してください。</label>
@@ -99,10 +99,11 @@
                 </div>
                 <div class="form-group">
                     <label for="#characterImg">推しキャラの画像を選択してください。</label>
-                    <input type="file" class="form-control-file" id="characterImg" v-on:change="characterImg">
+                    <input type="file" class="form-control-file" id="characterImg" @change="readFile">
+                    <p style="color: red;">{{ errorMsg }}</p>
                 </div>
                 <div class="form-group">
-                    <button type="submit" href="#" class="btn btn-dark" v-on:click="toggleHome">更新</button>
+                    <button type="submit" class="btn btn-dark" v-on:click="toggleImg">更新</button>
                 </div>
             </form>
         </div>
